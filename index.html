@@ -5,17 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Portfolio of Nanda Naing, Computer Science graduate.">
+  <meta name="description" content="Nanda Naing — First-Class Computer Science graduate. Explore my projects, skills, experience and certifications.">
   <title>Nanda Naing — Portfolio</title>
 
   <style>
     :root {
-      --background: #ffffff;
-      --surface: #f7f7f8;
+      --bg: #ffffff;
       --text: #1d1d1f;
       --muted: #6e6e73;
+      --surface: #f7f7f8;
       --border: #e8e8ed;
-      --accent: #0066cc;
+      --blue: #0066cc;
     }
 
     * {
@@ -24,11 +24,12 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 85px;
     }
 
     body {
       margin: 0;
-      background: var(--background);
+      background: var(--bg);
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont,
         "Segoe UI", Arial, sans-serif;
@@ -42,23 +43,28 @@
     }
 
     a:hover {
-      color: var(--accent);
+      color: var(--blue);
     }
 
     .container {
       width: min(100% - 48px, 1000px);
-      margin: 0 auto;
+      margin-inline: auto;
     }
 
     /* Navigation */
 
     header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,.96);
       border-bottom: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     nav {
-      min-height: 76px;
+      min-height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -68,60 +74,76 @@
     .logo {
       font-size: 17px;
       font-weight: 700;
-      letter-spacing: -0.5px;
+      letter-spacing: -.5px;
+      white-space: nowrap;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
-      font-size: 14px;
+      gap: 22px;
+      font-size: 13px;
       color: var(--muted);
+    }
+
+    .nav-links a {
+      transition: color .2s;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 13px;
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
     }
 
     /* Hero */
 
     .hero {
       padding: 130px 0 140px;
-      max-width: 780px;
+      max-width: 800px;
     }
 
     .eyebrow {
       font-size: 13px;
       font-weight: 600;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 24px;
     }
 
     h1 {
-      font-size: clamp(48px, 8vw, 86px);
-      line-height: 1.08;
-      letter-spacing: -3px;
+      font-size: clamp(48px, 8vw, 84px);
       font-weight: 700;
+      letter-spacing: -3px;
+      line-height: 1.08;
       margin: 0 0 28px;
     }
 
     .hero p {
+      max-width: 670px;
       font-size: clamp(17px, 2.5vw, 21px);
-      line-height: 1.65;
       color: var(--muted);
-      max-width: 650px;
-      margin-bottom: 36px;
+      line-height: 1.65;
+      margin: 0 0 34px;
     }
 
     .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 13px 24px;
+      padding: 13px 25px;
       background: var(--text);
       color: white;
       border-radius: 999px;
       font-size: 14px;
       font-weight: 600;
-      transition: background 0.2s ease;
+      transition: background .2s;
     }
 
     .button:hover {
@@ -129,7 +151,7 @@
       color: white;
     }
 
-    /* Sections */
+    /* Shared sections */
 
     section {
       padding: 95px 0;
@@ -140,13 +162,13 @@
       font-size: clamp(30px, 4vw, 44px);
       letter-spacing: -1.5px;
       line-height: 1.2;
-      margin: 0 0 32px;
+      margin: 0 0 28px;
     }
 
     .section-text {
-      font-size: 18px;
-      color: var(--muted);
       max-width: 760px;
+      color: var(--muted);
+      font-size: 17px;
       margin: 0;
     }
 
@@ -156,7 +178,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 28px;
+      margin-top: 30px;
     }
 
     .skill {
@@ -168,75 +190,88 @@
       color: #424245;
     }
 
-    /* Projects */
+    /* Project and certificate cards */
 
-    .project-grid {
+    .card-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0,1fr));
       gap: 20px;
       margin-top: 36px;
     }
 
-    .project {
+    .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 22px;
-      padding: 36px;
-      min-height: 250px;
-      transition: transform 0.2s ease;
+      padding: 34px;
+      min-width: 0;
+      transition: transform .2s ease;
     }
 
-    .project:hover {
+    .card:hover {
       transform: translateY(-3px);
     }
 
-    .project-number {
-      color: var(--muted);
+    .card-label {
       font-size: 13px;
-      margin-bottom: 24px;
-    }
-
-    .project h3 {
-      font-size: 23px;
-      line-height: 1.3;
-      letter-spacing: -0.5px;
-      margin: 0 0 14px;
-    }
-
-    .project p {
-      font-size: 15px;
       color: var(--muted);
-      margin: 0 0 20px;
+      margin-bottom: 23px;
     }
 
-    .tech {
+    .card h3 {
+      font-size: 22px;
+      letter-spacing: -.5px;
+      line-height: 1.3;
+      margin: 0 0 12px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 15px;
+      margin: 0 0 18px;
+    }
+
+    .card-meta {
       font-size: 13px;
       color: #424245;
-      font-weight: 500;
     }
 
-    /* Experience */
+    .card-link {
+      display: inline-block;
+      margin-top: 22px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--blue);
+    }
 
-    .experience-item {
-      padding: 26px 0;
+    /* Education and experience */
+
+    .timeline-item {
+      padding: 27px 0;
       border-bottom: 1px solid var(--border);
     }
 
-    .experience-item h3 {
-      font-size: 20px;
-      margin: 0 0 6px;
+    .timeline-item:last-child {
+      border-bottom: none;
     }
 
-    .experience-item .role {
+    .timeline-item h3 {
+      font-size: 20px;
+      letter-spacing: -.3px;
+      margin: 0 0 5px;
+    }
+
+    .timeline-meta {
+      font-size: 14px;
       color: var(--muted);
-      font-size: 15px;
       margin-bottom: 12px;
     }
 
-    .experience-item p {
+    .timeline-item p {
       color: var(--muted);
-      margin: 0;
+      font-size: 15px;
       max-width: 760px;
+      margin: 0;
     }
 
     /* Contact */
@@ -255,14 +290,14 @@
     .social-links {
       display: flex;
       justify-content: center;
-      gap: 25px;
       flex-wrap: wrap;
-      margin-top: 30px;
-      font-size: 15px;
+      gap: 24px;
+      margin-top: 28px;
+      font-size: 14px;
     }
 
     .social-links a {
-      color: var(--accent);
+      color: var(--blue);
     }
 
     /* Footer */
@@ -277,10 +312,10 @@
     .footer-content {
       display: flex;
       justify-content: space-between;
-      gap: 16px;
+      gap: 15px;
     }
 
-    /* Mobile */
+    /* Mobile layout */
 
     @media (max-width: 700px) {
       .container {
@@ -291,9 +326,31 @@
         min-height: 66px;
       }
 
+      .menu-toggle {
+        display: block;
+      }
+
       .nav-links {
-        gap: 14px;
-        font-size: 12px;
+        display: none;
+        position: absolute;
+        top: 66px;
+        left: 0;
+        right: 0;
+        background: white;
+        border-bottom: 1px solid var(--border);
+        padding: 18px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 11px 8px;
+        font-size: 15px;
       }
 
       .hero {
@@ -308,13 +365,12 @@
         padding: 70px 0;
       }
 
-      .project-grid {
+      .card-grid {
         grid-template-columns: 1fr;
       }
 
-      .project {
+      .card {
         padding: 28px;
-        min-height: auto;
       }
 
       .section-text {
@@ -331,85 +387,16 @@
       }
     }
 
-    @media (max-width: 380px) {
-      .nav-links {
-        gap: 10px;
-      }
-
-      .nav-links a {
-        font-size: 11px;
-      }
-    }
-
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
       }
 
-      .project,
+      .card,
       .button {
         transition: none;
       }
     }
-    
-/* Certifications */
-
-.certificate-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin-top: 36px;
-}
-
-.certificate-card {
-  background: #f7f7f8;
-  border: 1px solid #e8e8ed;
-  border-radius: 22px;
-  padding: 32px;
-}
-
-.certificate-icon {
-  color: #6e6e73;
-  font-size: 13px;
-  margin-bottom: 24px;
-}
-
-.certificate-card h3 {
-  font-size: 21px;
-  letter-spacing: -0.5px;
-  margin: 0 0 10px;
-}
-
-.certificate-card p {
-  color: #6e6e73;
-  font-size: 15px;
-  margin: 0 0 8px;
-}
-
-.certificate-date {
-  display: block;
-  color: #6e6e73;
-  font-size: 14px;
-}
-
-.certificate-link {
-  display: inline-block;
-  margin-top: 24px;
-  color: #0066cc;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-@media (max-width: 700px) {
-  .certificate-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .certificate-card {
-    padding: 28px;
-  }
-}
-
   </style>
 </head>
 
@@ -418,21 +405,32 @@
   <!-- Navigation -->
   <header>
     <div class="container">
-      <nav>
-        <a class="logo" href="#">Nanda Naing.</a>
+      <nav aria-label="Main navigation">
+        <a class="logo" href="#top">Nanda Naing.</a>
 
-        <div class="nav-links">
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-links">
+          Menu
+        </button>
+
+        <div class="nav-links" id="nav-links">
           <a href="#about">About</a>
+          <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
+          <a href="#education">Education</a>
           <a href="#experience">Experience</a>
-          <a href="#contact">Contact</a>
           <a href="#certifications">Certificates</a>
+          <a href="#contact">Contact</a>
         </div>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="top">
 
     <!-- Hero -->
     <div class="container">
@@ -463,17 +461,18 @@
     <!-- About -->
     <section id="about">
       <div class="container">
-        <h2 class="section-heading">A little about me.</h2>
+        <h2 class="section-heading">
+          A little about me.
+        </h2>
 
         <p class="section-text">
           I'm a Computer Science graduate based in
           Newcastle upon Tyne, UK. I enjoy solving
           technical problems, developing practical
           solutions and exploring new technologies.
-
           My background combines academic computing
-          projects, ICT support volunteering and
-          customer-facing work experience.
+          projects, technical problem-solving skills
+          and customer-facing work experience.
         </p>
       </div>
     </section>
@@ -481,7 +480,9 @@
     <!-- Skills -->
     <section id="skills">
       <div class="container">
-        <h2 class="section-heading">What I work with.</h2>
+        <h2 class="section-heading">
+          What I work with.
+        </h2>
 
         <p class="section-text">
           Technologies and tools I've used through
@@ -493,7 +494,7 @@
           <span class="skill">Python</span>
           <span class="skill">Linux</span>
           <span class="skill">Networking</span>
-          <span class="skill">Git & GitHub</span>
+          <span class="skill">Git &amp; GitHub</span>
           <span class="skill">Power BI</span>
           <span class="skill">Machine Learning</span>
           <span class="skill">PyTorch</span>
@@ -506,17 +507,21 @@
     <!-- Projects -->
     <section id="projects">
       <div class="container">
-        <h2 class="section-heading">Selected projects.</h2>
+        <h2 class="section-heading">
+          Selected projects.
+        </h2>
 
         <p class="section-text">
           A selection of academic and technical
           projects I've worked on.
         </p>
 
-        <div class="project-grid">
+        <div class="card-grid">
 
-          <article class="project">
-            <div class="project-number">01 / Machine Learning</div>
+          <article class="card">
+            <div class="card-label">
+              01 / Machine Learning
+            </div>
 
             <h3>Health Data Prediction</h3>
 
@@ -527,13 +532,15 @@
               Random Forest and Neural Networks.
             </p>
 
-            <div class="tech">
+            <div class="card-meta">
               Python · Scikit-learn · Data Analysis
             </div>
           </article>
 
-          <article class="project">
-            <div class="project-number">02 / Robotics</div>
+          <article class="card">
+            <div class="card-label">
+              02 / Robotics
+            </div>
 
             <h3>Autonomous Robot Navigation</h3>
 
@@ -544,13 +551,15 @@
               simulation tools.
             </p>
 
-            <div class="tech">
+            <div class="card-meta">
               Python · ROS 2 · Gazebo
             </div>
           </article>
 
-          <article class="project">
-            <div class="project-number">03 / Software Engineering</div>
+          <article class="card">
+            <div class="card-label">
+              03 / Software Engineering
+            </div>
 
             <h3>Microservices System Design</h3>
 
@@ -560,13 +569,15 @@
               system using microservices concepts.
             </p>
 
-            <div class="tech">
+            <div class="card-meta">
               Software Design · UML · Microservices
             </div>
           </article>
 
-          <article class="project">
-            <div class="project-number">04 / Deep Learning</div>
+          <article class="card">
+            <div class="card-label">
+              04 / Deep Learning
+            </div>
 
             <h3>Image Classification</h3>
 
@@ -576,7 +587,7 @@
               university deep learning coursework.
             </p>
 
-            <div class="tech">
+            <div class="card-meta">
               Python · PyTorch · CNN
             </div>
           </article>
@@ -585,88 +596,171 @@
       </div>
     </section>
 
-    <!-- Experience -->
-    <section id="experience">
+    <!-- Education -->
+    <section id="education">
       <div class="container">
-        <h2 class="section-heading">Experience</h2>
+        <h2 class="section-heading">
+          Education.
+        </h2>
 
-        <div class="experience-item">
-          <h3>Royal Grammar School Newcastle</h3>
-
-          <div class="role">
-            Catering Assistant · 2026 – Present
+        <div class="timeline-item">
+          <h3>University of Sunderland</h3>
+          <div class="timeline-meta">
+            BSc (Hons) Computer Science · First Class · 2026
           </div>
-
           <p>
-            Developed customer service,
-            communication and teamwork skills
-            while working in a busy environment.
+            Studied software engineering, robotics,
+            deep learning and applied computing,
+            completing practical technical projects.
           </p>
         </div>
 
-        <div class="experience-item">
-          <h3>Youth International College</h3>
-
-          <div class="role">
-            ICT Support Volunteering · 2024 – 2025
+        <div class="timeline-item">
+          <h3>Pearson BTEC</h3>
+          <div class="timeline-meta">
+            Higher National Diploma in Computing · Distinction
           </div>
-
           <p>
-            Assisted students with basic technical
-            issues, explained solutions and
-            documented support activities.
+            Developed foundational skills in programming,
+            networking, cloud computing, data analysis
+            and computer systems.
           </p>
         </div>
       </div>
     </section>
-    
-<!-- Certifications -->
-<section id="certifications">
-  <div class="container">
-    <h2 class="section-heading">Certifications.</h2>
 
-    <p class="section-text">
-      Professional certifications and courses
-      supporting my continuous learning
-      and technical development.
-    </p>
+    <!-- Experience -->
+    <section id="experience">
+      <div class="container">
+        <h2 class="section-heading">
+          Experience.
+        </h2>
 
-    <div class="certificate-grid">
+        <div class="timeline-item">
+          <h3>Royal Grammar School Newcastle</h3>
 
-      <article class="certificate-card">
-        <div class="certificate-icon">01 / Certificate</div>
-        <h3>Certificate Name</h3>
-        <p>Issued by: Organization Name</p>
-        <span class="certificate-date">Year: 2026</span>
-        <a href="YOUR_CERTIFICATE_URL"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="certificate-link">
-          View certificate ↗
-        </a>
-      </article>
+          <div class="timeline-meta">
+            Catering Assistant · 2026 – Present
+          </div>
 
-      <article class="certificate-card">
-        <div class="certificate-icon">02 / Certificate</div>
-        <h3>Certificate Name</h3>
-        <p>Issued by: Organization Name</p>
-        <span class="certificate-date">Year: 2026</span>
-        <a href="YOUR_CERTIFICATE_URL"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="certificate-link">
-          View certificate ↗
-        </a>
-      </article>
+          <p>
+            Developed customer service, communication
+            and teamwork skills while working in
+            a busy, collaborative environment.
+          </p>
+        </div>
+      </div>
+    </section>
 
-    </div>
-  </div>
-</section>
+    <!-- Certifications -->
+    <section id="certifications">
+      <div class="container">
+        <h2 class="section-heading">
+          Certifications.
+        </h2>
 
+        <p class="section-text">
+          Completed courses in technical support,
+          artificial intelligence and cloud technologies.
+        </p>
 
+        <div class="card-grid">
 
-      
-    </secetion>
+          <!-- Google Technical Support -->
+          <article class="card">
+            <div class="card-label">
+              01 / Google · Coursera
+            </div>
+
+            <h3>Technical Support Fundamentals</h3>
+
+            <p>
+              Google-authorized course completed
+              through Coursera.
+            </p>
+
+            <div class="card-meta">
+              Completed: 30 July 2026
+            </div>
+
+            <a class="card-link"
+               href="https://www.coursera.org/verify/S5C3GQKRVI8C"
+               target="_blank"
+               rel="noopener noreferrer">
+              Verify certificate ↗
+            </a>
+          </article>
+
+          <!-- Google Introduction to AI -->
+          <article class="card">
+            <div class="card-label">
+              02 / Google · Coursera
+            </div>
+
+            <h3>Introduction to AI</h3>
+
+            <p>
+              Google-authorized introduction to
+              artificial intelligence completed
+              through Coursera.
+            </p>
+
+            <div class="card-meta">
+              Completed: 30 July 2026
+            </div>
+
+            <a class="card-link"
+               href="https://www.coursera.org/verify/92XT6ZTXFVCR"
+               target="_blank"
+               rel="noopener noreferrer">
+              Verify certificate ↗
+            </a>
+          </article>
+
+          <!-- DataCamp Cloud Computing -->
+          <article class="card">
+            <div class="card-label">
+              03 / DataCamp
+            </div>
+
+            <h3>Understanding Cloud Computing</h3>
+
+            <p>
+              Statement of Accomplishment
+              awarded by DataCamp.
+            </p>
+
+            <div class="card-meta">
+              Completed: 14 May 2024
+            </div>
+
+            <!-- Add a certificate URL after uploading PDF -->
+          </article>
+
+          <!-- DataCamp Azure -->
+          <article class="card">
+            <div class="card-label">
+              04 / DataCamp
+            </div>
+
+            <h3>Understanding Microsoft Azure</h3>
+
+            <p>
+              Statement of Accomplishment
+              awarded by DataCamp.
+            </p>
+
+            <div class="card-meta">
+              Completed: 8 June 2024
+            </div>
+
+            <!-- Add a certificate URL after uploading PDF -->
+          </article>
+
+        </div>
+      </div>
+    </section>
+
     <!-- Contact -->
     <section id="contact" class="contact-section">
       <div class="container">
@@ -687,6 +781,10 @@
         </a>
 
         <div class="social-links">
+          <a href="mailto:nandanaing.10@gmail.com">
+            Email
+          </a>
+
           <a href="https://github.com/nandanaing21"
              target="_blank"
              rel="noopener noreferrer">
@@ -702,9 +800,27 @@
   <footer>
     <div class="container footer-content">
       <span>© 2026 Nanda Naing</span>
-      <span>nandanaing.10@gmail.com</span>
+      <span>Newcastle upon Tyne, UK</span>
     </div>
   </footer>
+
+  <!-- Mobile menu -->
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
 
 </body>
 </html>
